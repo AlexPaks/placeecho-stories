@@ -36,6 +36,14 @@ npm i
 npm run dev
 ```
 
+### Browserslist “caniuse-lite is old” warning
+
+If you see a message like “Browserslist: browsers data (caniuse-lite) is X months old”, you can refresh it with npm (no Bun required):
+
+- `npm update browserslist caniuse-lite`
+
+This updates the lockfile and installed dependencies so tools like Autoprefixer stop warning.
+
 **Edit a file directly in GitHub**
 
 - Navigate to the desired file(s).
