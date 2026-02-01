@@ -35,8 +35,43 @@ export const Header: React.FC = () => {
       <div className="container flex items-center justify-between h-16">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 font-semibold text-xl">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground text-sm font-bold">PE</span>
+          <div className="relative">
+            <div className="w-10 h-10 bg-gradient-to-br from-primary to-brand rounded-2xl shadow-xl flex items-center justify-center transform rotate-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="w-6 h-6 text-primary-foreground"
+                aria-hidden="true"
+              >
+                <path d="M12 7v14"></path>
+                <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path>
+              </svg>
+            </div>
+            <div className="absolute -bottom-1.5 -right-1.5 w-5 h-5 bg-secondary rounded-full border-2 border-background shadow-lg flex items-center justify-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="w-3 h-3 text-secondary-foreground"
+                aria-hidden="true"
+              >
+                <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
           </div>
           <span className="text-foreground">PlaceEcho</span>
         </Link>
