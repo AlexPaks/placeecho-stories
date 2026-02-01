@@ -29,6 +29,7 @@ export default {
           foreground: "hsl(var(--teal-foreground))",
           muted: "hsl(var(--teal-muted))",
         },
+        "section-teal": "hsl(var(--section-teal))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

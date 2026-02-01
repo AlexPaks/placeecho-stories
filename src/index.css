@@ -50,6 +50,7 @@
 
     /* Section backgrounds */
     --section-alt: 40 25% 97%;
+    --section-teal: 174 60% 97%;
     
     /* Shadows */
     --shadow-sm: 0 1px 2px 0 hsl(220 20% 10% / 0.05);
@@ -58,12 +59,14 @@
     --shadow-xl: 0 20px 25px -5px hsl(220 20% 10% / 0.1), 0 8px 10px -6px hsl(220 20% 10% / 0.1);
     --shadow-brand: 0 10px 30px -10px hsl(38 92% 50% / 0.3);
     --shadow-teal: 0 10px 30px -10px hsl(174 84% 26% / 0.2);
+    --shadow-glow: 0 0 60px -15px hsl(38 92% 50% / 0.4);
 
     /* Gradients */
     --gradient-brand: linear-gradient(135deg, hsl(38 92% 50%), hsl(28 92% 55%));
     --gradient-teal: linear-gradient(135deg, hsl(174 84% 26%), hsl(174 70% 35%));
     --gradient-warm: linear-gradient(180deg, hsl(40 30% 99%) 0%, hsl(40 25% 97%) 100%);
     --gradient-hero: linear-gradient(135deg, hsl(40 30% 99%) 0%, hsl(38 40% 96%) 50%, hsl(40 30% 99%) 100%);
+    --gradient-mesh: radial-gradient(at 40% 20%, hsl(38 92% 50% / 0.08) 0px, transparent 50%), radial-gradient(at 80% 0%, hsl(174 84% 26% / 0.08) 0px, transparent 50%), radial-gradient(at 0% 50%, hsl(38 92% 50% / 0.05) 0px, transparent 50%), radial-gradient(at 80% 50%, hsl(174 84% 26% / 0.05) 0px, transparent 50%), radial-gradient(at 0% 100%, hsl(38 92% 50% / 0.08) 0px, transparent 50%), radial-gradient(at 80% 100%, hsl(174 84% 26% / 0.08) 0px, transparent 50%);
   }
 
   .dark {
@@ -153,9 +156,67 @@
     background: hsl(var(--section-alt));
   }
 
+  .section-teal {
+    background: hsl(var(--section-teal));
+  }
+
+  .section-mesh {
+    background-color: hsl(var(--background));
+    background-image: var(--gradient-mesh);
+  }
+
   /* Hero gradient background */
   .hero-gradient {
     background: var(--gradient-hero);
+    position: relative;
+  }
+
+  /* Decorative blob shapes */
+  .blob-shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .blob-primary {
+    background: hsl(var(--primary) / 0.3);
+  }
+
+  .blob-secondary {
+    background: hsl(var(--secondary) / 0.3);
+  }
+
+  /* Wave pattern divider */
+  .wave-divider {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+  }
+
+  .wave-divider svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 60px;
+  }
+
+  .wave-divider .shape-fill {
+    fill: hsl(var(--background));
+  }
+
+  /* Floating animation */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
   }
 
   /* Step card animation */
