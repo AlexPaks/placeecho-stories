@@ -17,6 +17,22 @@
     <meta name="twitter:description" content="PlaceEcho turns GPS/photos into personalized short stories with audio." />
     
     <meta name="theme-color" content="#f59e0b" />
+
+    <!-- GitHub Pages SPA routing fix: https://github.com/rafgraph/spa-github-pages (concept) -->
+    <script type="text/javascript">
+      (function (l) {
+        if (l.search && l.search.startsWith("?/")) {
+          var decoded = l.search
+            .slice(2)
+            .split("&")
+            .map(function (s) {
+              return s.replace(/~and~/g, "&");
+            })
+            .join("?");
+          window.history.replaceState(null, null, l.pathname + decoded + l.hash);
+        }
+      })(window.location);
+    </script>
   </head>
 
   <body>
