@@ -10,6 +10,6 @@ export default defineConfig(({ mode }) => ({
     },
   },
 
-  // 👇 DEV יקבל "/", BUILD ל-GitHub Pages יקבל "/placeecho-stories/"
-  base: mode === "production" ? "/placeecho-stories/" : "/",
+  base: "/",
+
 }));
