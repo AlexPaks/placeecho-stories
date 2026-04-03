@@ -14,29 +14,70 @@ export const DemoSection: React.FC = () => {
   const [generatedStory, setGeneratedStory] = useState<string | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const mockStories: Record<string, string> = {
-    'Historical': "The ancient stones beneath your feet have witnessed centuries of human endeavor. From Roman merchants to modern travelers, each footstep adds to the endless narrative of this remarkable place. The walls here hold secrets that echo through time, waiting to be discovered by those who pause to listen.",
-    'Poetic': "Here, where light dances upon weathered stones, time itself seems to pause and breathe. Whispers of forgotten dreams drift on the breeze, painting invisible stories across the canvas of memory. Each shadow holds a verse, each corner a stanza in nature's endless poem.",
-    'Documentary': "This location serves as a significant cultural landmark. Established in the early 20th century, it has been a gathering point for communities and a witness to major historical events. Archaeological findings suggest human activity dating back several centuries.",
-    'Personal': "I remember the first time I stood here. The sounds, the smells, the way the light fell just so. It reminded me of stories my grandfather used to tell, of places that lived more in memory than in maps. Some places just feel like home, even when you've never been before.",
-    'Adventure': "The path ahead winds into mystery. Every traveler who has stood here faced the same choice: the safety of the known, or the thrill of discovery. Legend speaks of hidden treasures and ancient secrets waiting just beyond the next horizon. Your adventure begins now.",
+  const API_BASE = 'https://api.placeecho.io/public/v1';
+
+  const styleMap: Record<string, string> = {
+    'Historical': 'historical',
+    'Poetic': 'poetic',
+    'Documentary': 'documentary',
+    'Personal': 'personal',
+    'Adventure': 'adventure',
   };
 
-  const handleGenerate = () => {
+  const lengthMap: Record<string, string> = {
+    'Short': 'short',
+    'Medium': 'medium',
+    'Long': 'long',
+  };
+
+  const languageMap: Record<string, string> = {
+    'English': 'en',
+    'Hebrew': 'he',
+    'Russian': 'ru',
+  };
+
+  const handleGenerate = async () => {
     if (!location) return;
-    
+
     setIsGenerating(true);
     setGeneratedStory(null);
-    
-    // Simulate API call
-    setTimeout(() => {
-      setGeneratedStory(mockStories[style] || mockStories['Historical']);
+
+    try {
+      const response = await fetch(`${API_BASE}/stories/generate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          context: { place_name: location },
+          preferences: {
+            style: styleMap[style] ?? 'historical',
+            length: lengthMap[length] ?? 'short',
+            language: languageMap[language] ?? 'en',
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setGeneratedStory(data.story?.text ?? 'No story returned.');
+    } catch (err) {
+      setGeneratedStory('Something went wrong generating your story. Please try again.');
+    } finally {
       setIsGenerating(false);
-    }, 2000);
+    }
   };
 
   const handleUseMyLocation = () => {
-    setLocation('Current Location (Mock)');
+    if (!navigator.geolocation) {
+      setLocation('Location not supported');
+      return;
+    }
+    navigator.geolocation.getCurrentPosition(
+      (pos) => setLocation(`${pos.coords.latitude.toFixed(4)}, ${pos.coords.longitude.toFixed(4)}`),
+      () => setLocation('Location unavailable'),
+    );
   };
 
   return (
