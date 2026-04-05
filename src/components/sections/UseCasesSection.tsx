@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useLanguage } from '@/contexts/language-context';
 import { Plane, Users, Map, Building, Landmark, PenTool } from 'lucide-react';
 
 // Import images

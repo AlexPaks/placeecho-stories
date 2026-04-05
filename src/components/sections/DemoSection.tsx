@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useLanguage } from '@/contexts/language-context';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { MapPin, Play, Pause, RotateCcw, Volume2, Wand2, Sparkles } from 'lucide-react';

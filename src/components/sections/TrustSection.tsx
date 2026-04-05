@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useLanguage } from '@/contexts/language-context';
 import { Shield, Trash2, Zap, CheckCircle2 } from 'lucide-react';
 
 export const TrustSection: React.FC = () => {
