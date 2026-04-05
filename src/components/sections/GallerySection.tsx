@@ -1,19 +1,62 @@
-import React, { useState } from 'react';
-import { useLanguage } from '@/contexts/language-context';
+import React, { useEffect, useRef, useState } from 'react';
+import { BookOpen, Headphones, MapPin, Play, Shuffle } from 'lucide-react';
+
 import { Button } from '@/components/ui/button';
-import { Play, Shuffle, MapPin, Headphones, BookOpen } from 'lucide-react';
+import { useLanguage } from '@/contexts/language-context';
 
 export const GallerySection: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [displayedStories, setDisplayedStories] = useState(t.gallery.stories.slice(0, 3));
   const [expandedStory, setExpandedStory] = useState<string | null>(null);
   const [playingStory, setPlayingStory] = useState<string | null>(null);
+  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+
+  const isSpeechSupported = typeof window !== 'undefined' && 'speechSynthesis' in window;
+  const speechLanguage = language === 'he' ? 'he-IL' : 'en-US';
+
+  useEffect(() => {
+    setDisplayedStories(t.gallery.stories.slice(0, 3));
+    setExpandedStory(null);
+    setPlayingStory(null);
+  }, [t]);
+
+  useEffect(() => {
+    if (!isSpeechSupported) {
+      return;
+    }
+
+    const syncVoices = () => {
+      setVoices(window.speechSynthesis.getVoices());
+    };
+
+    syncVoices();
+    window.speechSynthesis.onvoiceschanged = syncVoices;
+
+    return () => {
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.onvoiceschanged = null;
+      utteranceRef.current = null;
+      setPlayingStory(null);
+    };
+  }, [isSpeechSupported]);
+
+  const stopSpeaking = () => {
+    if (!isSpeechSupported) {
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+    utteranceRef.current = null;
+    setPlayingStory(null);
+  };
 
   const shuffleStories = () => {
+    stopSpeaking();
+
     const shuffled = [...t.gallery.stories].sort(() => Math.random() - 0.5);
     setDisplayedStories(shuffled.slice(0, 3));
     setExpandedStory(null);
-    setPlayingStory(null);
   };
 
   const toneColors: Record<string, string> = {
@@ -24,9 +67,48 @@ export const GallerySection: React.FC = () => {
     Personal: 'from-rose-500/20 to-rose-600/10 text-rose-700',
   };
 
+  const resolveVoice = () =>
+    voices.find((voice) => voice.lang.toLowerCase() === speechLanguage.toLowerCase()) ??
+    voices.find((voice) => voice.lang.toLowerCase().startsWith(language.toLowerCase())) ??
+    null;
+
+  const handleToggleSpeech = (storyId: string, text: string) => {
+    if (!isSpeechSupported) {
+      return;
+    }
+
+    if (playingStory === storyId) {
+      stopSpeaking();
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    const voice = resolveVoice();
+
+    utterance.lang = speechLanguage;
+    if (voice) {
+      utterance.voice = voice;
+    }
+
+    utterance.onend = () => {
+      setPlayingStory((current) => (current === storyId ? null : current));
+      utteranceRef.current = null;
+    };
+
+    utterance.onerror = () => {
+      setPlayingStory(null);
+      utteranceRef.current = null;
+    };
+
+    utteranceRef.current = utterance;
+    setPlayingStory(storyId);
+    window.speechSynthesis.speak(utterance);
+  };
+
   return (
     <section id="gallery" className="py-20 md:py-28 section-teal relative overflow-hidden">
-      {/* Background decoration */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-secondary/5 rounded-full blur-3xl" />
@@ -38,9 +120,7 @@ export const GallerySection: React.FC = () => {
             <BookOpen className="w-4 h-4" />
             <span>Story Examples</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            {t.gallery.title}
-          </h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t.gallery.title}</h2>
           <div className="w-20 h-1 bg-gradient-to-r from-secondary to-primary mx-auto rounded-full mb-8" />
           <Button
             variant="outline"
@@ -55,14 +135,14 @@ export const GallerySection: React.FC = () => {
         <div className="grid md:grid-cols-3 gap-8">
           {displayedStories.map((story, idx) => {
             const toneStyle = toneColors[story.tone] || toneColors.Historical;
-            
+            const spokenText = expandedStory === story.id ? story.fullStory : story.snippet;
+
             return (
               <div
                 key={story.id}
                 className="group bg-card rounded-2xl overflow-hidden shadow-lg border border-border/50 transition-all duration-500 hover:shadow-xl hover:-translate-y-2"
                 style={{ animationDelay: `${idx * 0.1}s` }}
               >
-                {/* Header with gradient */}
                 <div className={`relative p-6 bg-gradient-to-br ${toneStyle.split(' ').slice(0, 2).join(' ')}`}>
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
@@ -72,19 +152,21 @@ export const GallerySection: React.FC = () => {
                       <span className="font-semibold text-foreground">{story.place}</span>
                     </div>
                   </div>
-                  <span className={`inline-flex items-center text-xs font-semibold px-3 py-1.5 rounded-full bg-card/80 backdrop-blur-sm ${toneStyle.split(' ').slice(2).join(' ')}`}>
+                  <span
+                    className={`inline-flex items-center text-xs font-semibold px-3 py-1.5 rounded-full bg-card/80 backdrop-blur-sm ${toneStyle
+                      .split(' ')
+                      .slice(2)
+                      .join(' ')}`}
+                  >
                     {story.tone}
                   </span>
                 </div>
 
-                {/* Content */}
                 <div className="p-6 space-y-4">
                   <div className="min-h-[100px]">
-                    <p className="text-muted-foreground leading-relaxed">
-                      {expandedStory === story.id ? story.fullStory : story.snippet}
-                    </p>
+                    <p className="text-muted-foreground leading-relaxed">{expandedStory === story.id ? story.fullStory : story.snippet}</p>
                   </div>
-                  
+
                   {expandedStory !== story.id && (
                     <button
                       onClick={() => setExpandedStory(story.id)}
@@ -94,19 +176,19 @@ export const GallerySection: React.FC = () => {
                     </button>
                   )}
 
-                  {/* Play button */}
-                  <button 
-                    onClick={() => setPlayingStory(playingStory === story.id ? null : story.id)}
+                  <button
+                    onClick={() => handleToggleSpeech(story.id, spokenText)}
+                    disabled={!isSpeechSupported}
                     className={`w-full flex items-center justify-center gap-3 rounded-xl py-4 font-medium transition-all duration-300 ${
-                      playingStory === story.id 
-                        ? 'bg-primary text-primary-foreground shadow-brand' 
+                      playingStory === story.id
+                        ? 'bg-primary text-primary-foreground shadow-brand'
                         : 'bg-muted hover:bg-primary/10 text-foreground group-hover:bg-primary/10'
-                    }`}
+                    } disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-muted`}
                   >
                     {playingStory === story.id ? (
                       <>
                         <Headphones className="w-5 h-5 animate-pulse" />
-                        <span>Playing...</span>
+                        <span>{t.gallery.stopButton}</span>
                       </>
                     ) : (
                       <>
@@ -120,6 +202,10 @@ export const GallerySection: React.FC = () => {
             );
           })}
         </div>
+
+        {!isSpeechSupported && (
+          <p className="text-center text-sm text-muted-foreground mt-8">Browser read-aloud is not available on this device.</p>
+        )}
       </div>
     </section>
   );

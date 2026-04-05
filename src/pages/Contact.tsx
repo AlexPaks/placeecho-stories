@@ -154,7 +154,7 @@ const Contact: React.FC = () => {
                   </div>
                   <h3 className="font-semibold text-foreground">{isHe ? 'מיקום' : 'Location'}</h3>
                 </div>
-                <p className="text-muted-foreground">Kiryat Yam Israel</p>
+                <p className="text-muted-foreground">Kiryat Yam, Israel</p>
               </div>
             </div>
           </div>

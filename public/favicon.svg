@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="placeecho-favicon-gradient" x1="12" y1="8" x2="52" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f59e0b" />
+      <stop offset="1" stop-color="#0f766e" />
+    </linearGradient>
+  </defs>
+  <rect x="10" y="8" width="38" height="38" rx="12" fill="url(#placeecho-favicon-gradient)" transform="rotate(3 10 8)" />
+  <path
+    d="M22 20h8a6 6 0 0 1 6 6 6 6 0 0 1 6-6h8v22h-10a4 4 0 0 0-4 4 4 4 0 0 0-4-4H22V20Z"
+    stroke="white"
+    stroke-width="3"
+    stroke-linejoin="round"
+  />
+  <path d="M36 20v26" stroke="white" stroke-width="3" stroke-linecap="round" />
+  <circle cx="48" cy="44" r="9" fill="#14b8a6" stroke="white" stroke-width="3" />
+  <path
+    d="M48 48c2.8-2.2 4.5-4.7 4.5-7a4.5 4.5 0 1 0-9 0c0 2.3 1.7 4.8 4.5 7Z"
+    stroke="white"
+    stroke-width="2.4"
+    stroke-linejoin="round"
+  />
+  <circle cx="48" cy="41" r="1.8" fill="white" />
+</svg>

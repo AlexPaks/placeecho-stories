@@ -95,6 +95,7 @@ export interface SiteContent {
     title: string;
     randomButton: string;
     playButton: string;
+    stopButton: string;
     stories: StoryExample[];
   };
   trust: {

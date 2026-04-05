@@ -99,7 +99,7 @@ export const enContent: SiteContent = {
         features: [
           'Length: Short / Medium / Long',
           'Style: Historical / Poetic / Documentary / Personal / Adventure',
-          'Language: Hebrew / English / Russian + RTL/LTR',
+          'Language: Multiple languages supported',
         ],
       },
       {
@@ -124,6 +124,7 @@ export const enContent: SiteContent = {
     title: 'Story Examples',
     randomButton: 'Random Story',
     playButton: 'Play (Mock)',
+    stopButton: 'Stop Playback',
     stories: [
       {
         id: '1',
@@ -184,7 +185,7 @@ export const enContent: SiteContent = {
       },
       {
         title: 'Fast Generation',
-        description: 'Stories generated in ~10–20 seconds.',
+        description: 'Stories generated in ~20-30 seconds.',
         icon: 'zap',
       },
     ],
@@ -211,6 +212,6 @@ export const enContent: SiteContent = {
     generateButton: 'Generate Story',
     lengths: ['Short', 'Medium', 'Long'],
     styles: ['Historical', 'Poetic', 'Documentary', 'Personal', 'Adventure'],
-    languages: ['English', 'Hebrew', 'Russian'],
+    languages: ['English', 'Hebrew', 'Russian', 'Spanish', 'French', 'Arabic'],
   },
 };
