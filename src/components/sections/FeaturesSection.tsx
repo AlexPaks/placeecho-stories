@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useLanguage } from '@/contexts/language-context';
 import { Wand2, Volume2, Brain, Check, Sparkles } from 'lucide-react';
 
 export const FeaturesSection: React.FC = () => {

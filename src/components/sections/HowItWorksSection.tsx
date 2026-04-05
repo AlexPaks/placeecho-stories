@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useLanguage } from '@/contexts/language-context';
 import { MapPin, Eye, Sparkles, Volume2, BookOpen, ArrowRight } from 'lucide-react';
 
 export const HowItWorksSection: React.FC = () => {

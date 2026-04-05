@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e
+
+echo "Running lint before commit..."
+
+if command -v npm.cmd >/dev/null 2>&1; then
+  npm.cmd run lint
+else
+  npm run lint
+fi
