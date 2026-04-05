@@ -188,6 +188,8 @@ export const enContent: SiteContent = {
         icon: 'zap',
       },
     ],
+    partnersLabel: 'Trusted by beta testers & partners',
+    partners: [],
   },
   finalCTA: {
     headline: 'Want early access?',
@@ -196,6 +198,8 @@ export const enContent: SiteContent = {
     reasonPlaceholder: 'Why does this interest you?',
     submitButton: 'Join Waitlist',
     bookDemo: 'Book a Demo (B2B)',
+    successTitle: "You're on the list!",
+    successDescription: "We’re opening PlaceEcho gradually, and you’ll be among the first to get access.",
   },
   demo: {
     title: 'Try the Demo',

@@ -51,6 +51,8 @@ export interface FinalCTAContent {
   reasonPlaceholder: string;
   submitButton: string;
   bookDemo: string;
+  successTitle: string;
+  successDescription: string;
 }
 
 export interface DemoContent {
@@ -98,6 +100,8 @@ export interface SiteContent {
   trust: {
     title: string;
     items: TrustItem[];
+    partnersLabel: string;
+    partners: string[];
   };
   finalCTA: FinalCTAContent;
   demo: DemoContent;

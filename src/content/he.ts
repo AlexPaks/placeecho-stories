@@ -1,6 +1,4 @@
-import { SiteContent } from './types';
-
-export const heContent: SiteContent = {
+export const heContent = {
   nav: {
     home: 'בית',
     about: 'אודות',
@@ -188,6 +186,8 @@ export const heContent: SiteContent = {
         icon: 'zap',
       },
     ],
+    partnersLabel: '× ×ª×ž×š ×¢×œ ×™×“×™ ×‘×•×“×§×™ ×‘×˜× ×•×©×•×ª×¤×™×',
+    partners: [],
   },
   finalCTA: {
     headline: 'רוצה גישה מוקדמת?',

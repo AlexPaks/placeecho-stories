@@ -4,6 +4,7 @@ import { Shield, Trash2, Zap, CheckCircle2 } from 'lucide-react';
 
 export const TrustSection: React.FC = () => {
   const { t } = useLanguage();
+  const visiblePartners = t.trust.partners.map((partner) => partner.trim()).filter(Boolean);
 
   const iconMap: Record<string, React.ElementType> = {
     shield: Shield,
@@ -62,17 +63,18 @@ export const TrustSection: React.FC = () => {
           })}
         </div>
 
-        {/* Partners placeholder */}
-        <div className="mt-20 pt-12 border-t border-border/50">
-          <p className="text-center text-muted-foreground text-sm mb-8 font-medium">Trusted by beta testers & partners</p>
-          <div className="flex justify-center items-center gap-12 flex-wrap opacity-50 grayscale hover:grayscale-0 hover:opacity-70 transition-all duration-500">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <div key={i} className="w-28 h-10 bg-muted rounded-lg flex items-center justify-center">
-                <span className="text-xs font-medium text-muted-foreground">Partner {i}</span>
-              </div>
-            ))}
+        {visiblePartners.length > 0 && (
+          <div className="mt-20 pt-12 border-t border-border/50">
+            <p className="text-center text-muted-foreground text-sm mb-8 font-medium">{t.trust.partnersLabel}</p>
+            <div className="flex justify-center items-center gap-12 flex-wrap opacity-50 grayscale hover:grayscale-0 hover:opacity-70 transition-all duration-500">
+              {visiblePartners.map((partner) => (
+                <div key={partner} className="min-w-28 h-10 px-4 bg-muted rounded-lg flex items-center justify-center">
+                  <span className="text-xs font-medium text-muted-foreground whitespace-nowrap">{partner}</span>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

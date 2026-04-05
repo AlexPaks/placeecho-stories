@@ -15,7 +15,7 @@ export const Header: React.FC = () => {
     { label: t.nav.home, href: '/' },
     { label: t.nav.about, href: '/about' },
     { label: t.nav.faq, href: '/faq' },
-    { label: t.nav.contact, href: '#contact' },
+    { label: t.nav.contact, href: '/contact' },
   ];
 
   const toggleLanguage = () => {
