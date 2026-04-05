@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Vite App",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm.cmd run dev",
+      "cwd": "${workspaceFolder}",
+      "serverReadyAction": {
+        "pattern": "Local:\\s+(https?://localhost:${config:placeecho.devPort})",
+        "uriFormat": "%s",
+        "action": "debugWithChrome"
+      }
+    },
+    {
+      "name": "Open Chrome on Vite",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:${config:placeecho.devPort}",
+      "webRoot": "${workspaceFolder}"
+    }
+  ]
+}
