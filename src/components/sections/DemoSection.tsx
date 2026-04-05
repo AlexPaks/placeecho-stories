@@ -22,12 +22,20 @@ const storyLanguageMap: Record<string, string> = {
   English: 'en',
   Hebrew: 'he',
   Russian: 'ru',
+  German: 'de',
+  Spanish: 'es',
+  French: 'fr',
+  Arabic: 'ar',
 };
 
 const ttsLanguageMap: Record<string, string> = {
   en: 'en-US',
   he: 'he-IL',
   ru: 'ru-RU',
+  de: 'de-DE',
+  es: 'es-ES',
+  fr: 'fr-FR',
+  ar: 'ar-SA',
 };
 
 const formatTime = (seconds: number) => {
