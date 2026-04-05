@@ -63,7 +63,7 @@ const Contact: React.FC = () => {
         return;
       }
 
-      setSubmitted(true);
+    setSubmitted(true);
       setFormData({
         name: '',
         email: '',
@@ -117,8 +117,8 @@ const Contact: React.FC = () => {
                   </div>
                   <div>
                     <label className="text-sm font-medium text-foreground mb-2 block">{isHe ? 'הודעה' : 'Message'}</label>
-                    <Textarea
-                      required
+                    <Textarea 
+                      required 
                       value={formData.message}
                       onChange={(event) => setFormData((current) => ({ ...current, message: event.target.value }))}
                       placeholder={isHe ? 'איך נוכל לעזור?' : 'How can we help?'}
