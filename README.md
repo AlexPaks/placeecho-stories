@@ -1,81 +1,104 @@
-# Welcome to your Lovable project
+# PlaceEcho Public Frontend
 
-## Project info
+PlaceEcho is a public-facing web app for location-based storytelling. This frontend powers the marketing site, interactive story demo, waitlist flow, contact page, and supporting legal and informational pages.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Features
 
-## How can I edit this code?
+- Marketing homepage with hero, feature, gallery, trust, demo, and waitlist sections
+- Interactive story demo with GPS-aware context, story generation, and audio playback
+- Public waitlist signup flow
+- Contact page with backend-driven message submission
+- Localized content with English and Hebrew support
+- About, FAQ, Privacy, Terms, and Contact routes
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use Lovable**
+- Vite
+- React
+- TypeScript
+- React Router
+- TanStack Query
+- Tailwind CSS
+- shadcn/ui
+- Vitest
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+### Prerequisites
 
-**Use your preferred IDE**
+- Node.js 18+
+- npm
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Local Development
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+1. Install dependencies:
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+npm install
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+2. Copy the example environment file and adjust values as needed:
 
-# Step 3: Install the necessary dependencies.
-npm i
+```sh
+cp .env.example .env.development
+```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+3. Start the development server:
+
+```sh
 npm run dev
 ```
 
-### Browserslist “caniuse-lite is old” warning
+The local dev port is environment-driven through `VITE_DEV_PORT`. The example configuration currently uses `5175`.
 
-If you see a message like “Browserslist: browsers data (caniuse-lite) is X months old”, you can refresh it with npm (no Bun required):
+## Configuration
 
-- `npm update browserslist caniuse-lite`
+Runtime integration is configured through environment variables rather than hardcoded values.
 
-This updates the lockfile and installed dependencies so tools like Autoprefixer stop warning.
+Key variables from `.env.example`:
 
-**Edit a file directly in GitHub**
+- `VITE_BACKEND_ORIGIN`: backend origin for public API requests
+- `VITE_PUBLIC_API_PREFIX`: public API path prefix
+- `VITE_DEV_PORT`: local Vite dev server port
+- `VITE_WAITLIST_SOURCE`: source value sent with waitlist submissions
+- `VITE_TTS_PROVIDER`: provider used for generated speech
+- `VITE_TTS_VOICE_PROFILE`: default TTS voice profile
+- `VITE_TTS_FORMAT`: default TTS audio format
+- `VITE_STORY_DEFAULT_STYLE`: default story style
+- `VITE_STORY_DEFAULT_TYPE`: default story type
+- `VITE_STORY_DEFAULT_PERSPECTIVE`: default story perspective
+- `VITE_STORY_DEFAULT_REALISM`: default realism value
+- `VITE_STORY_VOICE_ENABLED`: default voice toggle
+- `VITE_STORY_VOICE_SPEED`: default narration speed
+- `VITE_STORY_VOICE_TYPE`: default voice type
+- `VITE_STORY_VOICE_STYLE`: default voice style
+- `VITE_STORY_VOICE_PITCH`: default voice pitch
+- `VITE_STORY_NARRATION_EMOTION`: default narration emotion
+- `VITE_STORY_AUTOPLAY_AUDIO`: autoplay behavior after story generation
+- `VITE_STORY_DOWNLOAD_AUDIO_AFTER_GENERATION`: download behavior after story generation
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Shared runtime config is assembled in `src/lib/config.ts`.
 
-**Use GitHub Codespaces**
+## Available Scripts
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- `npm run dev`: start the local Vite development server
+- `npm run build`: build the production bundle
+- `npm run build:dev`: build using development mode
+- `npm run lint`: run ESLint
+- `npm run preview`: preview the production build locally
+- `npm test`: run the Vitest suite once
+- `npm run test:watch`: run Vitest in watch mode
 
-## What technologies are used for this project?
+## Project Structure
 
-This project is built with:
+- `src/App.tsx`: top-level providers and route definitions
+- `src/pages/Index.tsx`: homepage composition
+- `src/lib/config.ts`: environment-backed runtime configuration
+- `src/content/`: localized content for site sections
+- `src/components/sections/`: homepage section components
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Notes
 
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+- The public frontend integrates with public backend endpoints for GPS context lookup, story generation, TTS, waitlist signup, and contact submissions.
+- Anonymous public client continuity is handled automatically for public API requests.
+- Content and UI labels are managed through the localized content layer instead of hardcoded page copy where possible.
