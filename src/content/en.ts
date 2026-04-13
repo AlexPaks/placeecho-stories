@@ -212,6 +212,6 @@ export const enContent: SiteContent = {
     generateButton: 'Generate Story',
     lengths: ['Short', 'Medium', 'Long'],
     styles: ['Historical', 'Poetic', 'Documentary', 'Personal', 'Adventure'],
-    languages: ['English', 'Hebrew', 'Russian', 'Spanish', 'French', 'Arabic'],
+    languages: ['English', 'Hebrew', 'Russian', 'Spanish', 'French', 'Arabic', 'German'],
   },
 };
